@@ -1,0 +1,17 @@
+{
+  "name": "cn-skill-test-polling-system-api",
+  "version": "1.0.0",
+  "description": "\"A polling system API to vote\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "mongoose": "^6.10.0",
+    "nodemon": "^2.0.20"
+  }
+}

@@ -1,0 +1,1 @@
+A Polling System API backed by Mongo DB
