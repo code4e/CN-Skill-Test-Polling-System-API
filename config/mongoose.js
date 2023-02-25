@@ -14,6 +14,8 @@ async function main() {
 
 const db = mongoose.connection;
 
+
+
 db.on('error', console.error.bind(console, "Error connection to Polling System db"));
 
 db.once('open', () => {
