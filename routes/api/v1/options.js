@@ -15,6 +15,12 @@ router.use('/:optionID/add_vote',
     passport.authenticate('jwt', { session: false }),
     votesController.add);
 
+//delete an option by ID
+router.delete('/:optionID/delete',
+    passport.authenticate('jwt', { session: false }),
+    optionsController.destroy
+)
+
 
 
 

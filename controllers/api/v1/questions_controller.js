@@ -7,15 +7,17 @@ module.exports.read = async (req, res) => {
     let { id } = req.params;
 
     try {
-        let question = await Question.findById(id).populate("options", "_id text vote_count link_to_vote");
-        if(question){
+        let question = await Question.findById(id, { _id: 1, title: 1, options: 1 })
+            //only populate certain fields while fetching the populated document
+            .populate("options", "_id text vote_count link_to_vote");
+        if (question) {
             return res.status(200).json({
                 message: "Here is the requested question",
                 data: {
                     question
                 }
             });
-        }else{
+        } else {
             //handle question not found
             return res.status(404).json({
                 message: "Requested resource not found"
@@ -54,7 +56,7 @@ module.exports.index = async (req, res) => {
 }
 
 
-
+//create a new question
 module.exports.create = async (req, res) => {
 
     //perform some base level validations
@@ -95,6 +97,8 @@ module.exports.create = async (req, res) => {
     }
 }
 
+
+//delete a question
 module.exports.destroy = async (req, res) => {
     try {
         //check if the question to be deleted exists or not
@@ -104,14 +108,18 @@ module.exports.destroy = async (req, res) => {
             //check if the options under this question have votes to it, if yes, then don't delete it
             let options = await Option.find({
                 question,
-                //check that the votes size is zero
-                votes: { $size: 0 }
+                //check that the votes size is non zero
+                $expr: { $gt: [{ $size: "$votes" }, 0] }
+                // votes: {$where:`this.votes.length > 0`}
             }).select({ _id: 1 });
 
-            //if the options found all have votes size 0, then allow deletion
-            if (options.length) {
+            // if the options found all have votes size 0, then allow deletion
+            if (!options.length) {
                 // remove all the options under this question
-                await Option.deleteMany({ _id: { $in: options } });
+                await Option.deleteMany({
+                    _id: { $nin: options },
+                    question: questionTBD
+                });
 
                 //remove the question
                 question.remove();
@@ -122,7 +130,7 @@ module.exports.destroy = async (req, res) => {
 
             } else {
                 return res.status(401).json({
-                    message: "The option(s) under this question have votes to, cannot be deleted"
+                    message: "The option(s) under this question has votes, cannot be deleted"
                 });
             }
 
