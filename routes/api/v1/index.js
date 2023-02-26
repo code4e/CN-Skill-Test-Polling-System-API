@@ -7,5 +7,7 @@ router.use('/questions', require('./questions'));
 //redirect all users requests to the users api route
 router.use('/users', require('./users'));
 
+//redirect all options requests to the options api route
+router.use('/options', require('./options'));
 
 module.exports = router;

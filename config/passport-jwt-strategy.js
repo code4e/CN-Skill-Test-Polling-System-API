@@ -26,4 +26,8 @@ passport.use(new JWTStrategy(opts, function(jwtPayLoad, done){
 
 }));
 
+// passport.checkAlreadyLoggedIn = (req, res, next) => !req.isAuthenticated() ? next() : res.res(400).json({message: "A user is already logged in!"});
+
+
+
 module.exports = passport;

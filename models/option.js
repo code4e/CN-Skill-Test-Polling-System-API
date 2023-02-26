@@ -6,8 +6,29 @@ const optionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    votes: {
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    //question to which this option belongs to
+    question: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Question'
+    },
+    vote_count: {
         type: Number,
+        default: 0
+    },
+    votes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Vote'
+        }
+    ],
+    //auto generate it dynamically
+    link_to_vote: {
+        type: String,
+        unique: true
     }
 }, {
     timestamps: true

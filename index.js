@@ -1,7 +1,11 @@
 const express = require('express');
 const port = 8080;
 const app = express();
+
+//require and configure DOTENV to store and read keys and passwords from a separate .env file
 require('dotenv').config();
+
+//require body parser to read body data
 const bodyParser = require('body-parser');
 
 //load up mongo config to connect to the db

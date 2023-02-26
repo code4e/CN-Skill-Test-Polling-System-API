@@ -14,7 +14,6 @@ module.exports.createSession = async (req, res) => {
     //whenever create session request is received, we need to find if the user(email) exists in db and generate the corresponding json web token
     try {
         let user = await User.findOne({ email: req.body.email });
-        // console.log("passwords are - ", req.body.password);
         if (!user || req.body.password != user.password) {
             //status code 422 means there is an invalid input by the user
             return res.status(422).json({
@@ -30,12 +29,12 @@ module.exports.createSession = async (req, res) => {
                     },
                         //use the secret key to generate the jwt
                         process.env.SECRET_KEY,
-                        { expiresIn: '1h' })
+                        { expiresIn: '8h' })
                 }
             });
         }
     } catch (error) {
-        console.log(`Error occured with ${error}`);
+        console.log(`Error occured in creating your session ${error}`);
         return res.status(500).json({
             message: "Internal server error"
         });
@@ -86,3 +85,4 @@ module.exports.create = async (req, res) => {
     }
 
 }
+    

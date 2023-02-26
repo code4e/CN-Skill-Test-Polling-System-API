@@ -7,6 +7,10 @@ const questionSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     options: [
         {
             type: mongoose.Schema.Types.ObjectId,
