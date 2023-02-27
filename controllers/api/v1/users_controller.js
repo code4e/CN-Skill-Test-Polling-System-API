@@ -29,7 +29,7 @@ module.exports.createSession = async (req, res) => {
                     },
                         //use the secret key to generate the jwt
                         process.env.SECRET_KEY,
-                        { expiresIn: '8h' })
+                        { expiresIn: '4h' })
                 }
             });
         }
@@ -40,8 +40,6 @@ module.exports.createSession = async (req, res) => {
         });
     }
 }
-
-
 
 
 module.exports.create = async (req, res) => {
