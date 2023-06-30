@@ -7,7 +7,10 @@ main().catch(err => console.log(err));
 async function main() {
 
   //connecting to database
-  await mongoose.connect('mongodb://localhost:27017/polling_system_api_development');
+  // await mongoose.connect('mongodb://localhost:27017/polling_system_api_development');
+
+  await mongoose.connect(`mongodb+srv://${process.env.MONGO_ATLAS_USERNAME}:${process.env.MONGO_ATLAS_PASSWORD}@cluster0.c4abtvv.mongodb.net/?retryWrites=true&w=majority`);
+
   
   // use `await mongoose.connect('mongodb://user:password@localhost:27017/test');` if your database has auth enabled
 }
